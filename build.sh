@@ -2,4 +2,4 @@
 
 rm -rf .git/hooks
 
-ln -s ./_hooks/ .git/hooks
+ln -s $PWD/_hooks/ $PWD/.git/hooks

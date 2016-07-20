@@ -1,0 +1,45 @@
+#!/usr/bin/env python
+
+class Colors:
+    BG_RED = '\033[0;37;41m'
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
+def validate_commit_message(message):
+
+    regexp = '([A-Z]{1,4})\-(\d+)\s(.*)'
+
+    if not re.search(regexp, message):
+        print "\n%s[ERROR] Please add commit in this format: %s%s" % (
+            Colors.BG_RED,
+            regexp,
+            Colors.ENDC,
+        )
+        print "%s{Project Code}%s-%s{Jira Ticket ID}%s %s{your comment}%s" % (
+            Colors.FAIL,
+            Colors.ENDC,
+            Colors.OKBLUE,
+            Colors.ENDC,
+            Colors.WARNING,
+            Colors.ENDC,
+        )
+        print "Example:"
+        print "%sgit commit -m 'SD-123 this is my comment'%s\n" % (
+            Colors.OKGREEN,
+            Colors.ENDC,
+        )
+        exit(1)
+
+if __name__ == '__main__':
+    import sys, re
+
+    message_file = sys.argv[1]
+    message = open(message_file).read()
+
+    validate_commit_message(message)
